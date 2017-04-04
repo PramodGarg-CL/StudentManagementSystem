@@ -27,8 +27,6 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
     private static final int GET_STUDENT_DATA = 1;
     private RecyclerView mRecyclerView;
-    private Button mbButton;
-    private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Student> data;
     private StudentAdapter mStudentAdapter;
     private boolean isGridView = false;
@@ -58,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mStudentAdapter);
 
 
-        mbButton = (Button) findViewById(R.id.button);
-        mbButton.setOnClickListener(new View.OnClickListener() {
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(MainActivity.this, AddStudent.class));

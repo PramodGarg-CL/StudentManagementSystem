@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">StudentManagementSystem</string>
     <string name="create_student">Create Student</string>
+    <string name="string_male">Male</string>
+    <string name="string_female">Female</string>
+    <string name="string_other">Other</string>
+    <string name="enter_student_name">Enter Student Name</string>
+    <string name="enter_roll_number">Enter Roll Number</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_school_name">Enter School Name</string>
+    <string name="add_new_student">Add New Student</string>
 </resources>

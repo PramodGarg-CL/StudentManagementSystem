@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.darknight.studentmanagementsystem.MainActivity;
 import com.example.darknight.studentmanagementsystem.R;
 
 import java.util.ArrayList;
@@ -32,8 +31,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
                         ? R.layout.layout_grid_recycler_item
                         : R.layout.layout_linear_recycler_item,
                 parent, false);
-        StudentVH studentVH = new StudentVH(view);
-        return studentVH;
+        return new StudentVH(view);
     }
 
     @Override
@@ -45,11 +43,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         holder.schooName.setText(current.getSchoolName());
         int gender = current.getGender();
         if (gender == 1)
-            holder.gender.setText("Male");
+            holder.gender.setText(R.string.string_male);
         else if (gender == 0)
-            holder.gender.setText("Female");
+            holder.gender.setText(R.string.string_female);
         else
-            holder.gender.setText("Other");
+            holder.gender.setText(R.string.string_other);
         holder.email.setText(current.getEmail());
 
 
