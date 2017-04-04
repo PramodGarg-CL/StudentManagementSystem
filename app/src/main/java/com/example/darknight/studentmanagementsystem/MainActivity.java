@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
 import com.example.darknight.studentmanagementsystem.helpers.NameComparator;
 import com.example.darknight.studentmanagementsystem.helpers.RollComparator;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private StudentAdapter mStudentAdapter;
     private boolean isGridView = false;
     private boolean isSortByRoll;
+    private ToggleButton mToggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         Spinner spinner_sort = (Spinner) findViewById(R.id.spinner);
+        mToggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+        mToggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeRecyclerLayout();
+            }
+        });
+
 
         // adding options to spinner
         ArrayList<String> sort_menu = new ArrayList<>();
@@ -81,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mStudentAdapter = new StudentAdapter(data);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mToggleButton.setText("GridView");
         isGridView = false;
         //  mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mStudentAdapter);
@@ -133,26 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);//Menu Resource, Menu
-        return true;
-    }
-
-
-    // THe muenu list
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.change_ayout:
-                changeRecyclerLayout();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     // Sorts the data in the recycler view by Roll
     private void sortDataByRoll() {
         Collections.sort(data, new RollComparator());
@@ -172,14 +163,16 @@ public class MainActivity extends AppCompatActivity {
 
     // shuffles between the grid layout and the linear layout
     private void changeRecyclerLayout() {
-        if (isGridView) {
+        if (mToggleButton.isChecked()) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             isGridView = false;
             mStudentAdapter.isGridView = false;
+            mToggleButton.setText("GridView");
         } else {
             mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
             isGridView = true;
             mStudentAdapter.isGridView = true;
+            mToggleButton.setText("LinearLayout");
         }
         mStudentAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mStudentAdapter);
