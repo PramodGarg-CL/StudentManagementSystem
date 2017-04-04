@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentVH> {
     private ArrayList<Student> data;
+    public boolean isGridView = false;
 
     public StudentAdapter(ArrayList<Student> data) {
         this.data = data;
@@ -23,7 +24,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public StudentVH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler_item, parent, false);
+        // View view = LayoutInflater.from(parent.getContext()).inflate(isViewWithCatalog ? R.layout.product_row_layout_list : R.layout.product_row_layout_grid, null)
+        View view = LayoutInflater.from(parent.getContext()).inflate(isGridView
+                        ? R.layout.layout_grid_recycler_item
+                        : R.layout.layout_linear_recycler_item,
+                parent, false);
         StudentVH studentVH = new StudentVH(view);
         return studentVH;
     }
@@ -35,11 +40,13 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         holder.name.setText(current.getStudentName());
         holder.rollNo.setText(String.valueOf(current.getRollNumber()));
         holder.schooName.setText(current.getSchoolName());
-        boolean gender = current.getGender();
-        if (gender)
+        int gender = current.getGender();
+        if (gender == 1)
             holder.gender.setText("Male");
-        else
+        else if (gender == 2)
             holder.gender.setText("Female");
+        else
+            holder.gender.setText("Other");
         holder.email.setText(current.getEmail());
 
 
@@ -57,8 +64,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         public StudentVH(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.studentName);
-            schooName = (TextView) itemView.findViewById(R.id.rollNumber);
-            rollNo = (TextView) itemView.findViewById(R.id.schoolName);
+            schooName = (TextView) itemView.findViewById(R.id.schoolName);
+            rollNo = (TextView) itemView.findViewById(R.id.rollNumber);
             gender = (TextView) itemView.findViewById(R.id.gender);
             email = (TextView) itemView.findViewById(R.id.email);
         }
