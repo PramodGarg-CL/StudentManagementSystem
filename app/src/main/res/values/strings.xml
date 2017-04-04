@@ -9,4 +9,9 @@
     <string name="enter_email">Enter Email</string>
     <string name="enter_school_name">Enter School Name</string>
     <string name="add_new_student">Add New Student</string>
+    <string name="roll_no">Roll No:</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="email">Email</string>
+    <string name="school_name">School Name</string>
 </resources>

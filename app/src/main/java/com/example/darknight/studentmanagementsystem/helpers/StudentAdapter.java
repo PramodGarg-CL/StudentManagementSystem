@@ -1,14 +1,17 @@
 package com.example.darknight.studentmanagementsystem.helpers;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.darknight.studentmanagementsystem.R;
+import com.example.darknight.studentmanagementsystem.VIewStudentData;
 
 import java.util.ArrayList;
 
@@ -79,13 +82,42 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
                     alertbuilder.setItems(charSequence, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // furhter actions for selected option
+                            switch (which) {
+                                // View the data
+                                case 0:
+                                    Student selectedStudent = data.get(getAdapterPosition());
+                                    Intent intent = new Intent(itemView.getContext(), VIewStudentData.class);
+                                    intent.putExtra("name", selectedStudent.getStudentName());
+                                    intent.putExtra("roll", "" + selectedStudent.getRollNumber());
+                                    intent.putExtra("gender", selectedStudent.getGender());
+                                    intent.putExtra("email", selectedStudent.getEmail());
+                                    intent.putExtra("schoolName", selectedStudent.getSchoolName());
+                                    itemView.getContext().startActivity(intent);
+                                    break;
+                                // Edit the data from the list
+                                case 1:
+
+                                    break;
+                                // Delete the data from list
+                                case 2:
+                                    deleteDatafromList(getAdapterPosition());
+                                    break;
+                            }
                         }
                     });
                     alertbuilder.show();
                 }
             });
         }
+
+    }
+
+    //delete item from the data
+    private void deleteDatafromList(int adapterPosition) {
+        Log.d("StudentAdapter", "deleteDatafromList: " + adapterPosition);
+        data.remove(adapterPosition);
+        notifyItemRemoved(adapterPosition);
+        notifyItemRangeChanged(adapterPosition, data.size());
 
     }
 }
