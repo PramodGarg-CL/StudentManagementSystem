@@ -4,11 +4,11 @@
     <item
         android:id="@+id/change_ayout"
         android:title="Change Layout" />
-    <item
-        android:id="@+id/sort_by_name"
-        android:title="Sort By Name" />
-    <item
-        android:id="@+id/sort_by_roll"
-        android:title="Sort By Roll No" />
+    <!-- <item
+         android:id="@+id/sort_by_name"
+         android:title="Sort By Name" />
+     <item
+         android:id="@+id/sort_by_roll"
+         android:title="Sort By Roll No" />-->
 
 </menu>

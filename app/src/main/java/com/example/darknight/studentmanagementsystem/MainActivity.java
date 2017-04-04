@@ -6,14 +6,19 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ExpandedMenuView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ScrollingTabContainerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.darknight.studentmanagementsystem.helpers.NameComparator;
@@ -23,6 +28,7 @@ import com.example.darknight.studentmanagementsystem.helpers.StudentAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
     private static final int GET_STUDENT_DATA = 1;
@@ -30,14 +36,44 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Student> data;
     private StudentAdapter mStudentAdapter;
     private boolean isGridView = false;
+    private Spinner spinner_sort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        spinner_sort = (Spinner) findViewById(R.id.spinner);
 
-        // Dummy Data Ser
+        // adding options to spinner
+        ArrayList<String> sort_menu = new ArrayList<>();
+        sort_menu.add("Sort By Name");
+        sort_menu.add("Sort By Roll");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sort_menu);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner_sort.setAdapter(dataAdapter);
+        spinner_sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0)
+                    sortDataByName();
+                else
+                    sortDataByRoll();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // Dummy Data Set
         data = new ArrayList<>();
         data.add(new Student("Pramod", 464, "DummySchool1", 1, "dummyemail@domain.com"));
         data.add(new Student("Rajat", 468, "DummySchool2", 1, "dummyemail@domain.com"));
@@ -98,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         mStudentAdapter.notifyItemInserted(data.size() - 1);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -114,14 +149,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.change_ayout:
                 changeRecyclerLayout();
                 return true;
-            case R.id.sort_by_name:
+            /*case R.id.sort_by_name:
                 sortDataByName();
                 Toast.makeText(getApplicationContext(), "Sort By Name", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.sort_by_roll:
                 sortDataByRoll();
                 Toast.makeText(getApplicationContext(), "Sort By Roll", Toast.LENGTH_LONG).show();
-                return true;
+                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }
