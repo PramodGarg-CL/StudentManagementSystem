@@ -14,4 +14,5 @@
     <string name="gender">Gender</string>
     <string name="email">Email</string>
     <string name="school_name">School Name</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

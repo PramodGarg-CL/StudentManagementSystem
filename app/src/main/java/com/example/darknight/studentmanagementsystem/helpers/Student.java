@@ -8,6 +8,26 @@ import android.support.annotation.NonNull;
 
 public class Student {
 
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setRollNumber(long rollNumber) {
+        this.rollNumber = rollNumber;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private String studentName;
     private long rollNumber;
     private String schoolName;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.darknight.studentmanagementsystem.MainActivity;
 import com.example.darknight.studentmanagementsystem.R;
 import com.example.darknight.studentmanagementsystem.VIewStudentData;
 
@@ -87,16 +88,19 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
                                 case 0:
                                     Student selectedStudent = data.get(getAdapterPosition());
                                     Intent intent = new Intent(itemView.getContext(), VIewStudentData.class);
-                                    intent.putExtra("name", selectedStudent.getStudentName());
-                                    intent.putExtra("roll", "" + selectedStudent.getRollNumber());
-                                    intent.putExtra("gender", selectedStudent.getGender());
-                                    intent.putExtra("email", selectedStudent.getEmail());
-                                    intent.putExtra("schoolName", selectedStudent.getSchoolName());
+                                    // add data to intent extras
+                                    addDatatoIntent(intent, selectedStudent);
                                     itemView.getContext().startActivity(intent);
                                     break;
                                 // Edit the data from the list
                                 case 1:
-
+                                    Student selectedStudent2 = data.get(getAdapterPosition());
+                                    Intent intentEdit = new Intent(itemView.getContext(), EditDetails.class);
+                                    // add data to intent extras
+                                    addDatatoIntent(intentEdit, selectedStudent2);
+                                    MainActivity mainActivity = (MainActivity) itemView.getContext();
+                                    deleteDatafromList(getAdapterPosition());
+                                    mainActivity.startActivityForResult(intentEdit, MainActivity.GET_NEW_STUDENT_DATA);
                                     break;
                                 // Delete the data from list
                                 case 2:
@@ -112,9 +116,19 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     }
 
+    private void addDatatoIntent(Intent intent, Student student) {
+
+        intent.putExtra("name", student.getStudentName());
+        intent.putExtra("roll", "" + student.getRollNumber());
+        intent.putExtra("gender", student.getGender());
+        intent.putExtra("email", student.getEmail());
+        intent.putExtra("schoolName", student.getSchoolName());
+
+    }
+
     //delete item from the data
     private void deleteDatafromList(int adapterPosition) {
-        Log.d("StudentAdapter", "deleteDatafromList: " + adapterPosition);
+        // Log.d("StudentAdapter", "deleteDatafromList: " + adapterPosition);
         data.remove(adapterPosition);
         notifyItemRemoved(adapterPosition);
         notifyItemRangeChanged(adapterPosition, data.size());
