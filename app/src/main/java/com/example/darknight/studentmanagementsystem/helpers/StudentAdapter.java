@@ -1,11 +1,14 @@
 package com.example.darknight.studentmanagementsystem.helpers;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.darknight.studentmanagementsystem.MainActivity;
 import com.example.darknight.studentmanagementsystem.R;
 
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         int gender = current.getGender();
         if (gender == 1)
             holder.gender.setText("Male");
-        else if (gender == 2)
+        else if (gender == 0)
             holder.gender.setText("Female");
         else
             holder.gender.setText("Other");
@@ -61,13 +64,30 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     public class StudentVH extends RecyclerView.ViewHolder {
         TextView name, rollNo, schooName, gender, email;
 
-        public StudentVH(View itemView) {
+        public StudentVH(final View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.studentName);
             schooName = (TextView) itemView.findViewById(R.id.schoolName);
             rollNo = (TextView) itemView.findViewById(R.id.rollNumber);
             gender = (TextView) itemView.findViewById(R.id.gender);
             email = (TextView) itemView.findViewById(R.id.email);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CharSequence charSequence[] = {"View", "Edit", "Delete"};
+                    AlertDialog.Builder alertbuilder = new AlertDialog.Builder(itemView.getContext());
+                    alertbuilder.setTitle("Choose Option");
+                    alertbuilder.setItems(charSequence, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // furhter actions for selected option
+                        }
+                    });
+                    alertbuilder.show();
+                }
+            });
         }
+
     }
 }

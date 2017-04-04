@@ -50,9 +50,9 @@ public class AddStudent extends AppCompatActivity {
                 RadioButton radio_other = (RadioButton) group.findViewById(R.id.gender_other);
 
                 if (radio_male.isChecked())
-                    gender = 0;
-                else if (radio_female.isChecked())
                     gender = 1;
+                else if (radio_female.isChecked())
+                    gender = 0;
                 else
                     gender = 2;
             }

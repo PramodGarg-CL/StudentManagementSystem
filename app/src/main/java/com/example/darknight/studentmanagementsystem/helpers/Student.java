@@ -1,5 +1,7 @@
 package com.example.darknight.studentmanagementsystem.helpers;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by darknight on 4/4/17.
  */
@@ -39,7 +41,6 @@ public class Student {
     public String getEmail() {
         return email;
     }
-
 
 
 }

@@ -1,6 +1,9 @@
 package com.example.darknight.studentmanagementsystem;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.darknight.studentmanagementsystem.helpers.NameComparator;
+import com.example.darknight.studentmanagementsystem.helpers.RollComparator;
 import com.example.darknight.studentmanagementsystem.helpers.Student;
 import com.example.darknight.studentmanagementsystem.helpers.StudentAdapter;
 
@@ -36,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Dummy Data Ser
         data = new ArrayList<>();
-        data.add(new Student("DummyName1", 12312, "DummySchool1", 1, "dummyemail@domain.com"));
-        data.add(new Student("DummyName2", 16312, "DummySchool2", 1, "dummyemail@domain.com"));
-        data.add(new Student("DummyName3", 17312, "DummySchool3", 1, "dummyemail@domain.com"));
-        data.add(new Student("DummyName4", 165676, "DummySchool4", 1, "dummyemail@domain.com"));
-        data.add(new Student("DummyName5", 142312, "DummySchool5", 1, "dummyemail@domain.com"));
-        data.add(new Student("DummyName6", 167231, "DummySchool6", 1, "dummyemail@domain.com"));
+        data.add(new Student("Pramod", 464, "DummySchool1", 1, "dummyemail@domain.com"));
+        data.add(new Student("Rajat", 468, "DummySchool2", 1, "dummyemail@domain.com"));
+        data.add(new Student("Ranveer", 470, "DummySchool3", 1, "dummyemail@domain.com"));
+        data.add(new Student("Anmol", 1090, "DummySchool4", 1, "dummyemail@domain.com"));
+        data.add(new Student("Danish", 1091, "DummySchool5", 1, "dummyemail@domain.com"));
+        data.add(new Student("Shray", 487, "DummySchool6", 1, "dummyemail@domain.com"));
+        data.add(new Student("Namita", 268, "DummySchool6", 0, "dummyemail@domain.com"));
+        data.add(new Student("Priya", 1056, "DummySchool6", 0, "dummyemail@domain.com"));
 
         mStudentAdapter = new StudentAdapter(data);
 
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, GET_STUDENT_DATA);
             }
         });
+
 
     }
 
@@ -122,12 +130,17 @@ public class MainActivity extends AppCompatActivity {
 
     // Sorts the data in the recycler view by Roll
     private void sortDataByRoll() {
-
+        Collections.sort(data, new RollComparator());
+        mStudentAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mStudentAdapter);
     }
 
     // Sorts the data in the recycler view by name
     private void sortDataByName() {
-        //Collections.sort(data);
+        Collections.sort(data, new NameComparator());
+        mStudentAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mStudentAdapter);
+
     }
 
     // shuffles between the grid layout and the linear layout
