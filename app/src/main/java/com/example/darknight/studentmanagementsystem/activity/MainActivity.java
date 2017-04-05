@@ -1,14 +1,11 @@
-package com.example.darknight.studentmanagementsystem;
+package com.example.darknight.studentmanagementsystem.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,30 +13,43 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
+import com.example.darknight.studentmanagementsystem.R;
+import com.example.darknight.studentmanagementsystem.adapter.StudentAdapter;
 import com.example.darknight.studentmanagementsystem.helpers.NameComparator;
 import com.example.darknight.studentmanagementsystem.helpers.RollComparator;
-import com.example.darknight.studentmanagementsystem.helpers.Student;
-import com.example.darknight.studentmanagementsystem.helpers.StudentAdapter;
+import com.example.darknight.studentmanagementsystem.model.Student;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This activity displays the list of the added Students in RecyclerView
+ * and button to add launch new activity(@{@link StudentDetailsActivity to add new @{@link Student}
+ */
+
 public class MainActivity extends AppCompatActivity {
-    public static final int GET_NEW_STUDENT_DATA = 1;
+    public static final int GET_NEW_STUDENT_DATA = 11;
+    public static final int GET_OLD_STUDENT_DATA = 12;
+    private static final String TAG = MainActivity.class.getName();
     private RecyclerView mRecyclerView;
     private ArrayList<Student> data;
     private StudentAdapter mStudentAdapter;
     private boolean isGridView = false;
     private boolean isSortByRoll;
     private ToggleButton mToggleButton;
+    private static int roll = 123;  // dummy roll no for dummy data
+    public final static int ACTIVITY_MODE_VIEW_DATA = 1;
+    public final static int ACTIVITY_MODE_ADD_DATA = 2;
+    public final static int ACTIVITY_MODE_EDIT_DATA = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        Spinner spinner_sort = (Spinner) findViewById(R.id.spinner);
-        mToggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_students);
+        Spinner spinnerSort = (Spinner) findViewById(R.id.sp_sort);
+        mToggleButton = (ToggleButton) findViewById(R.id.tb_change_layout);
         mToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,19 +59,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         // adding options to spinner
-        ArrayList<String> sort_menu = new ArrayList<>();
-        sort_menu.add("Sort By Name");
-        sort_menu.add("Sort By Roll");
+        ArrayList<String> arrayListSort = new ArrayList<>();
+        arrayListSort.add("Sort By Name");
+        arrayListSort.add("Sort By Roll");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sort_menu);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayListSort);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinner_sort.setAdapter(dataAdapter);
-        spinner_sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSort.setAdapter(dataAdapter);
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0)
@@ -76,18 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        // Dummy Data Set
         data = new ArrayList<>();
-        data.add(new Student("Pramod", 464, "DummySchool1", 1, "dummyemail@domain.com"));
-        data.add(new Student("Rajat", 468, "DummySchool2", 1, "dummyemail@domain.com"));
-        data.add(new Student("Ranveer", 470, "DummySchool3", 1, "dummyemail@domain.com"));
-        data.add(new Student("Anmol", 1090, "DummySchool4", 1, "dummyemail@domain.com"));
-        data.add(new Student("Danish", 1091, "DummySchool5", 1, "dummyemail@domain.com"));
-        data.add(new Student("Shray", 487, "DummySchool6", 1, "dummyemail@domain.com"));
-        data.add(new Student("Namita", 268, "DummySchool6", 0, "dummyemail@domain.com"));
-        data.add(new Student("Priya", 1056, "DummySchool6", 0, "dummyemail@domain.com"));
-
+        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
+        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
+        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
+        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
+        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
+        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
         mStudentAdapter = new StudentAdapter(data);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -96,13 +101,14 @@ public class MainActivity extends AppCompatActivity {
         //  mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mStudentAdapter);
 
-
-        Button button = (Button) findViewById(R.id.button);
+        // Button to add new Student Data
+        Button button = (Button) findViewById(R.id.bt_add_student);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, AddStudent.class));
-                Intent intent = new Intent(MainActivity.this, AddStudent.class);
+                //startActivity(new Intent(MainActivity.this, StudentDetailsActivity.class));
+                Intent intent = new Intent(MainActivity.this, StudentDetailsActivity.class);
+                intent.putExtra("mode", ACTIVITY_MODE_ADD_DATA);
                 startActivityForResult(intent, GET_NEW_STUDENT_DATA);
             }
         });
@@ -110,41 +116,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // gets the data as results from the @AddStudent Activity
+    /**
+     * gets the data as results from the @{@link StudentDetailsActivity }Activity
+     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GET_NEW_STUDENT_DATA) {
             if (resultCode == RESULT_OK) {
-                String studentname = data.getStringExtra("studentName");
-                String schoolname = data.getStringExtra("schoolName");
-                int gender = data.getIntExtra("gender", 0);
-                String rollno = data.getStringExtra("rollNumber");
-                String email = data.getStringExtra("email");
-                Log.d("MainActivity", "onActivityResult: StudentName" + studentname +
-                        "schoolname:  " + schoolname +
-                        "gender:  " + gender +
-                        "rollno:  " + rollno +
-                        "email:  " + email);
+                Student student = (Student) data.getSerializableExtra("student");
+                mStudentAdapter.addData(student);
 
-                addDatatoList(studentname, schoolname, gender, rollno, email);
+            }
+        } else if (requestCode == GET_OLD_STUDENT_DATA) {
+            if (resultCode == RESULT_OK) {
+                Student student = (Student) data.getSerializableExtra("student");
+                int position = data.getIntExtra("position", mStudentAdapter.getItemCount());
+                mStudentAdapter.editData(position, student);
 
             }
         }
     }
 
-    // add the data to the ArrayList
-    private void addDatatoList(String studentname, String schoolname, int gender, String rollno, String email) {
-        data.add(new Student(studentname, Long.parseLong(rollno), schoolname, gender, email));
-        mStudentAdapter.notifyItemInserted(data.size() - 1);
-        if (isSortByRoll)
-            sortDataByRoll();
-        else
-            sortDataByName();
 
-    }
+    /**
+     * Sorts the data in the recycler view by RollNo. using @{@link RollComparator}
+     */
 
-    // Sorts the data in the recycler view by Roll
     private void sortDataByRoll() {
         Collections.sort(data, new RollComparator());
         mStudentAdapter.notifyDataSetChanged();
@@ -152,7 +151,9 @@ public class MainActivity extends AppCompatActivity {
         isSortByRoll = true;
     }
 
-    // Sorts the data in the recycler view by name
+    /**
+     * Sorts the data in the recycler view by RollNo. using @{@link NameComparator}
+     */
     private void sortDataByName() {
         Collections.sort(data, new NameComparator());
         mStudentAdapter.notifyDataSetChanged();
@@ -161,7 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // shuffles between the grid layout and the linear layout
+    /**
+     * Switch between the RecyclerView layout manager -Grid and Linear Layout
+     */
     private void changeRecyclerLayout() {
         if (mToggleButton.isChecked()) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -11,8 +11,9 @@
     <string name="add_new_student">Add New Student</string>
     <string name="roll_no">Roll No:</string>
     <string name="name">Name</string>
-    <string name="gender">Gender</string>
-    <string name="email">Email</string>
+    <string name="mGender">Gender</string>
+    <string name="mEmail">Email</string>
     <string name="school_name">School Name</string>
     <string name="save_changes">Save Changes</string>
+    <string name="add_student">Add Student</string>
 </resources>

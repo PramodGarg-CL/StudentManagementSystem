@@ -1,17 +1,19 @@
 package com.example.darknight.studentmanagementsystem.helpers;
 
+import com.example.darknight.studentmanagementsystem.model.Student;
+
 import java.util.Comparator;
 
 /**
- * Created by darknight on 4/4/17.
+ * NameComparactor compares the teo @{@link Student} objects by RollNo
  */
 
 public class RollComparator implements Comparator<Student> {
     @Override
     public int compare(Student o1, Student o2) {
-        if (o1.getRollNumber() < o2.getRollNumber())
+        if (o1.getmRollNumber() < o2.getmRollNumber())
             return -1;
-        else if (o1.getRollNumber() == o2.getRollNumber())
+        else if (o1.getmRollNumber() == o2.getmRollNumber())
             return 0;
         else
             return 1;
