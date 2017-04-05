@@ -125,21 +125,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     }
 
     /**
-     * Takes the intent and student object and student parameteres to
-     * the the intent object using intent exttras
-     */
-
-    private void addDatatoIntent(Intent intent, Student student) {
-
-        intent.putExtra("name", student.getmStudentName());
-        intent.putExtra("roll", "" + student.getmRollNumber());
-        intent.putExtra("gender", student.getmGender());
-        intent.putExtra("email", student.getmEmail());
-        intent.putExtra("schoolName", student.getmSchoolName());
-
-    }
-
-    /**
      * Deletes the data from the arrayList data at given adapterPostion    *
      *
      * @param adapterPosition

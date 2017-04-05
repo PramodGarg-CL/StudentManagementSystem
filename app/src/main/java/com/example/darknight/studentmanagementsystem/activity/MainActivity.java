@@ -87,12 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         data = new ArrayList<>();
-        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
-        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
-        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
-        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
-        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
-        data.add(new Student("asdasd", roll, "schoolname", 0, "email@domain.com"));
+        data.add(new Student("DummyName", roll, "DummySchoolName", 0, "dummyemail@domain.com"));
         mStudentAdapter = new StudentAdapter(data);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
