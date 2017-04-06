@@ -73,11 +73,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
         public StudentVH(final View itemView) {
             super(itemView);
-            textViewName = (TextView) itemView.findViewById(R.id.tv_studentName);
-            textViewSchooName = (TextView) itemView.findViewById(R.id.tv_school_name);
-            textViewRollNo = (TextView) itemView.findViewById(R.id.tv_label_roll_no);
-            textViewGender = (TextView) itemView.findViewById(R.id.tv_gender);
-            textViewEmail = (TextView) itemView.findViewById(R.id.tv_email);
+            textViewName = (TextView) itemView.findViewById(R.id.tv_item_student_name);
+            textViewSchooName = (TextView) itemView.findViewById(R.id.tv_item_school_name);
+            textViewRollNo = (TextView) itemView.findViewById(R.id.tv_item_label_roll_no);
+            textViewGender = (TextView) itemView.findViewById(R.id.tv_item_gender);
+            textViewEmail = (TextView) itemView.findViewById(R.id.tv_item_email);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,7 +127,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     /**
      * Deletes the data from the arrayList data at given adapterPostion    *
      *
-     * @param adapterPosition
      */
     private void deleteDatafromList(Context context, int adapterPosition) {
         // Log.d("StudentAdapter", "deleteDatafromList: " + adapterPosition);
@@ -144,7 +143,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     /**
      * Add new student to the data
      *
-     * @param student
      */
     public void addData(Student student) {
         mStudentData.add(student);
@@ -157,6 +155,4 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         mStudentData.set(position, student);
         notifyItemChanged(position);
     }
-
-    ;
 }

@@ -1,9 +1,5 @@
 package com.example.darknight.studentmanagementsystem.model;
 
-/**
- * Created by darknight on 4/4/17.
- */
-
 import java.io.Serializable;
 
 /**
@@ -27,29 +23,6 @@ public class Student implements Serializable {
         this.mSchoolName = schoolName;
         this.mGender = gender;
         this.mEmail = email;
-    }
-
-    /**
-     * Setter methods
-     **/
-    public void setmStudentName(String mStudentName) {
-        this.mStudentName = mStudentName;
-    }
-
-    public void setmRollNumber(long mRollNumber) {
-        this.mRollNumber = mRollNumber;
-    }
-
-    public void setmSchoolName(String mSchoolName) {
-        this.mSchoolName = mSchoolName;
-    }
-
-    public void setmGender(int mGender) {
-        this.mGender = mGender;
-    }
-
-    public void setmEmail(String mEmail) {
-        this.mEmail = mEmail;
     }
 
     /**

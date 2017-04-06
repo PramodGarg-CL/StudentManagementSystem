@@ -32,16 +32,16 @@ public class StudentDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_student);
-        mEdiTextStudentName = (EditText) findViewById(R.id.et_studentName);
-        mEdiTextRollNumber = (EditText) findViewById(R.id.et_roll_no);
-        mEdiTextEmail = (EditText) findViewById(R.id.et_email);
-        mEdiTextSchoolName = (EditText) findViewById(R.id.et_school_name);
-        mButtonSaveChanges = (Button) findViewById(R.id.bt_save);
-        mRadioGroup = (RadioGroup) findViewById(R.id.rg_gender);
-        mRadioButtonMale = (RadioButton) mRadioGroup.findViewById(R.id.rb_gender_male);
-        mRadioButtonFemale = (RadioButton) mRadioGroup.findViewById(R.id.rb_gender_female);
-        mRadioButtonOther = (RadioButton) mRadioGroup.findViewById(R.id.rb_gender_other);
+        setContentView(R.layout.activity_student_details);
+        mEdiTextStudentName = (EditText) findViewById(R.id.et_add_student_student_name);
+        mEdiTextRollNumber = (EditText) findViewById(R.id.et_add_student_roll_no);
+        mEdiTextEmail = (EditText) findViewById(R.id.et_add_student_email);
+        mEdiTextSchoolName = (EditText) findViewById(R.id.et_add_student_school_name);
+        mButtonSaveChanges = (Button) findViewById(R.id.bt_add_student_save);
+        mRadioGroup = (RadioGroup) findViewById(R.id.rg_add_student_gender);
+        mRadioButtonMale = (RadioButton) mRadioGroup.findViewById(R.id.rb_add_student_gender_male);
+        mRadioButtonFemale = (RadioButton) mRadioGroup.findViewById(R.id.rb_add_student_gender_female);
+        mRadioButtonOther = (RadioButton) mRadioGroup.findViewById(R.id.rb_add_student_gender_other);
 
         Intent intent = getIntent();
         //Checks if the activity is alunched to add edit or view the data
@@ -151,7 +151,6 @@ public class StudentDetailsActivity extends AppCompatActivity {
     private void returnStudentDatatoActivity() {
 
         Student newStudent = new Student(mStudentName, Long.parseLong(mRollNumber), mSchoolName, mGender, mEmail);
-
         Intent intent = new Intent();
         if (isEditMode)
             intent.putExtra("position", mPositionInDataSet);
@@ -168,8 +167,5 @@ public class StudentDetailsActivity extends AppCompatActivity {
         mRollNumber = mEdiTextRollNumber.getText().toString().trim();
         mEmail = mEdiTextEmail.getText().toString().trim();
         mSchoolName = mEdiTextSchoolName.getText().toString().trim();
-
     }
-
-
 }

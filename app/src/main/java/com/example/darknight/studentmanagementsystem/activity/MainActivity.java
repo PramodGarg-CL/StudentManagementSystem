@@ -30,7 +30,6 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
     public static final int GET_NEW_STUDENT_DATA = 11;
     public static final int GET_OLD_STUDENT_DATA = 12;
-    private static final String TAG = MainActivity.class.getName();
     private RecyclerView mRecyclerView;
     private ArrayList<Student> data;
     private StudentAdapter mStudentAdapter;
@@ -47,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_students);
-        Spinner spinnerSort = (Spinner) findViewById(R.id.sp_sort);
-        mToggleButton = (ToggleButton) findViewById(R.id.tb_change_layout);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_main_students);
+        Spinner spinnerSort = (Spinner) findViewById(R.id.sp_main_sort);
+        mToggleButton = (ToggleButton) findViewById(R.id.tb_main_change_layout);
         mToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,17 +90,16 @@ public class MainActivity extends AppCompatActivity {
         mStudentAdapter = new StudentAdapter(data);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mToggleButton.setText("GridView");
+        mToggleButton.setText(R.string.grid_view);
         isGridView = false;
         //  mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mRecyclerView.setAdapter(mStudentAdapter);
 
         // Button to add new Student Data
-        Button button = (Button) findViewById(R.id.bt_add_student);
+        Button button = (Button) findViewById(R.id.bt_main_add_student);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, StudentDetailsActivity.class));
                 Intent intent = new Intent(MainActivity.this, StudentDetailsActivity.class);
                 intent.putExtra("mode", ACTIVITY_MODE_ADD_DATA);
                 startActivityForResult(intent, GET_NEW_STUDENT_DATA);
@@ -165,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             isGridView = false;
             mStudentAdapter.isGridView = false;
-            mToggleButton.setText("GridView");
+            mToggleButton.setText(getString(R.string.grid_view));
         } else {
             mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
             isGridView = true;
             mStudentAdapter.isGridView = true;
-            mToggleButton.setText("LinearLayout");
+            mToggleButton.setText(R.string.linear_layout);
         }
         mStudentAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mStudentAdapter);

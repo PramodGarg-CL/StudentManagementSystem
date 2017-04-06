@@ -16,4 +16,8 @@
     <string name="school_name">School Name</string>
     <string name="save_changes">Save Changes</string>
     <string name="add_student">Add Student</string>
+    <string name="sort_by">Sort By</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="grid_view">GridView</string>
+    <string name="linear_layout">LinearLayout</string>
 </resources>
